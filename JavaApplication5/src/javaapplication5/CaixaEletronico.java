@@ -3,26 +3,57 @@ package javaapplication5;
 /*
  * @author Bruna Charnovski
  */
-public class SaqueEletronico {
+public class CaixaEletronico {
 
-    public static void calcular(int saque) {
-        //Scanner valorSaque = new Scanner(System.in)
-        int[] cedulas = {100, 50, 25, 10, 5, 2};
-        //System.out.println("Digite o valor para saque");
-        //int valorSaque = valorSaque.nextInt());
-        int valorSaque = 12;
+    static int[] notas = new int[]{2, 5, 10, 20, 50, 100};
+    public static void main(String[] args) {
 
-        for (int i = 0; i < cedulas.length; i++) {
-            if (saque >= cedulas[i]) {
-                System.out.println(saque / cedulas[i] + " notas de " + cedulas[i]);
-                saque = saque % cedulas[i];
+        int[] valor = funcao(19);
+        imprimeVetor(notas);
+        imprimeVetor(valor);
+
+    }
+
+    public static int[] funcao(int x) {
+        
+        int[] retorno = new int[]{0, 0, 0, 0, 0, 0};
+        for (int j = notas.length - 1; j >= 0; j--) {
+            int n = notas[j];
+            if (n <= x) {
+                int i = x / n;
+                int r = x % n;
+                retorno[j] = i;
+                if (r == 1) {
+                    System.out.println("Valor inválido");
+                    break;
+                } else if (r > 1) {
+                    int[] fr = funcao(r);
+                    retorno = somaVetor(retorno, fr);
+                    break;
+                }
             }
 
         }
+        
+
+        return retorno;
     }
 
-    public static void main(String[] args) {
-        calcular(12);
+    public static void imprimeVetor(int[] vet) {
+        for (int i = 0; i < vet.length; i++) {
 
+            System.out.print(vet[i] + " ");
+        }
+        System.out.println("");
     }
+
+    public static int[] somaVetor(int[] vetA, int[] vetB) {
+        int[] vetResult = {0, 0, 0, 0, 0, 0};
+        for (int i = 0; i < vetResult.length - 1; i++) {
+            vetResult[i] = vetA[i] + vetB[i];
+
+        }
+        return vetResult;
+    }
+
 }

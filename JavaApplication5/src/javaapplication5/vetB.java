@@ -9,6 +9,6 @@ package javaapplication5;
  *
  * @author bruna.charnovski
  */
-class Scanner {
+class vetB {
     
 }
